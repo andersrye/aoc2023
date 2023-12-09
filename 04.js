@@ -1,3 +1,4 @@
+require('./dirty-tricks')
 const fs = require('fs')
 const input = fs.readFileSync('./inputs/04.txt', 'utf-8')
 
@@ -11,7 +12,7 @@ const cards = input.split('\n')
   .map(line => {
     const [, winningNumbers, drawnNumbers] = line
       .split(/[:|]/)
-      .map(l => Array.from(l.matchAll(/\d+/g)).map(m => parseInt(m[0])))
+      .map(l => l.matchAll(/\d+/g).map(m => parseInt(m[0])))
     return intersection(winningNumbers, drawnNumbers)
   })
 

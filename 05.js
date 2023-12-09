@@ -1,5 +1,5 @@
 const fs = require('fs')
-const input = fs.readFileSync('./input/05.txt', 'utf-8')
+const input = fs.readFileSync('./inputs/05.txt', 'utf-8')
 
 const parsed = input.split("map")
   .map(l => Array.from(l.matchAll(/\d+/g)).map(n => parseInt(n[0])))
@@ -22,9 +22,9 @@ function seedToLocation(seed) {
   return mappers.reduce((acc, fn) => fn(acc), seed)
 }
 
-const solution = Math.min.apply(null, seeds.map(seedToLocation))
+const solution1 = Math.min.apply(null, seeds.map(seedToLocation))
 
-console.log('solution', solution)
+console.log('solution1', solution1)
 
 let min = Infinity
 for (let i = 0; i < seeds.length; i += 2) { //advarsel: tar ca 30 min!
@@ -35,4 +35,4 @@ for (let i = 0; i < seeds.length; i += 2) { //advarsel: tar ca 30 min!
   }
 }
 
-console.log("solution2", min)
+console.log('solution2', min)

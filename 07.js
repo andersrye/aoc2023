@@ -1,3 +1,4 @@
+require('./dirty-tricks')
 const fs = require('fs')
 const input = fs.readFileSync('./inputs/07.txt', 'utf-8')
 
@@ -17,7 +18,7 @@ function compareHighCard(a, b, alphabet) {
 }
 
 function type(string) {
-  return Object.values(string.split("").reduce((acc, c) => (acc[c] = (acc[c] ?? 0) + 1, acc), {}))
+  return Object.values(string.reduce((acc, c) => (acc[c] = (acc[c] ?? 0) + 1, acc), {}))
     .sort((a, b) => b - a)
     .join("")
 }
@@ -37,12 +38,12 @@ const solution1 = parsed
   .sort(compareHands(alphabet1))
   .reduce((acc, [, , bid], i) => acc + bid * (i + 1), 0)
 
-console.log("solution1", solution1)
+console.log('solution1', solution1)
 
 const alphabet2 = "AKQT98765432J"
 
 function jokerType(string) {
-  const {J = 0, ...freq} = string.split("").reduce((acc, c) => (acc[c] = (acc[c] ?? 0) + 1, acc), {})
+  const {J = 0, ...freq} = string.reduce((acc, c) => (acc[c] = (acc[c] ?? 0) + 1, acc), {})
   const type = Object.values(freq).sort((a, b) => b - a)
   type[0] = (type[0] ?? 0) + J
   return type.join("")

@@ -1,12 +1,19 @@
-const Generator = Object.getPrototypeOf(function* () {})
-
-Generator.prototype.map = function* (fn) {
+const reduce = function (fn, acc) {
   for (const val of this) {
-    yield fn(val)
+    acc = fn(acc, val)
   }
+  return acc
 }
 
-Generator.prototype.some = function (pred) {
+const map = function (fn) {
+  let res = []
+  for (const val of this) {
+    res.push(fn(val))
+  }
+  return res
+}
+
+const some = function (pred) {
   for (const val of this) {
     if(pred(val))
       return true
@@ -14,9 +21,16 @@ Generator.prototype.some = function (pred) {
   return false
 }
 
-Generator.prototype.reduce = function (fn, acc) {
+const mapGenerator = function* (fn) {
   for (const val of this) {
-    acc = fn(acc, val)
+    yield fn(val)
   }
-  return acc
 }
+
+
+const Generator = Object.getPrototypeOf(function* () {})
+const IteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()))
+
+Object.assign(Generator.prototype, {map: mapGenerator, some, reduce})
+Object.assign(IteratorPrototype, {map, some, reduce})
+Object.assign(String.prototype, {map, some, reduce})
