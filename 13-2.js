@@ -1,8 +1,9 @@
 require('./dirty-tricks')
-const {transpose, matrixToString, sum} = require("./util");
+const {transpose, matrixToString, sum} = require('./util')
 const input = require('fs').readFileSync('./inputs/13.txt', 'utf-8')
 
 const maps = input.split('\n\n').map(l => l.split('\n').map(s => s.split('')))
+
 function rowMismatches(line, startIndex) {
   let mismatchCount = 0
   for (let i = startIndex, j = startIndex + 1; true; i--, j++) {
@@ -18,7 +19,7 @@ function mirroredAt(matrix, mismatchCount) {
   if (index > -1) return index + 1
 }
 
-function mirrorScore2(matrix, mismatchCount) {
+function mirrorScore(matrix, mismatchCount) {
   const mirroredV = mirroredAt(matrix, mismatchCount)
   if (mirroredV) return mirroredV
   const transposed = transpose(matrix)
@@ -27,5 +28,5 @@ function mirrorScore2(matrix, mismatchCount) {
   throw Error(`not mirrored??\n${matrixToString(matrix)}`)
 }
 
-console.log('solution1', maps.map(m => mirrorScore2(m, 0)).reduce(sum))
-console.log('solution2', maps.map(m => mirrorScore2(m, 1)).reduce(sum))
+console.log('solution1', maps.map(m => mirrorScore(m, 0)).reduce(sum))
+console.log('solution2', maps.map(m => mirrorScore(m, 1)).reduce(sum))
