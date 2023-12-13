@@ -1,4 +1,5 @@
 require('./dirty-tricks')
+const {matrixToString} = require("./util");
 const input = require('fs').readFileSync('./inputs/10.txt', 'utf-8')
 const map = input.split("\n").map(l => l.split(""))
 
@@ -45,10 +46,6 @@ const expanded = {
   ]
 }
 
-function toString(map) {
-  return map.map(l => l.map(n => n ? n : " ").join("")).join('\n')
-}
-
 function expandMap(map) {
   return map.flatMap(r => r.map(n => expanded[n]).reduce(([accA, accB, accC], [a, b, c]) => [[...accA, ...a], [...accB, ...b], [...accC, ...c]], [[], [], []]))
 }
@@ -84,26 +81,43 @@ const path = search(expandedMap, [y * 3 + 1, x * 3 + 1], v => v, (_, h, [y2, x2]
 
 console.log('solution1', Math.floor(path.length / 3 / 2))
 
-console.log(toString(map), '\n')
+console.log(matrixToString(map), '\n')
 const nonLoopTiles = new Array(map.length).fill(null).map(_ => new Array(map[0].length).fill(1))
 path.forEach(([y, x]) => nonLoopTiles[Math.floor(y / 3)][Math.floor(x / 3)] = 0)
 
-console.log(toString(nonLoopTiles), '\n')
+console.log(matrixToString(nonLoopTiles), '\n')
 
 const loopPipesOnly = map.map((r, y) => r.map((v, x) => nonLoopTiles[y][x] ? "." : v))
 
-console.log(toString(loopPipesOnly), '\n')
+console.log(matrixToString(loopPipesOnly), '\n')
 
 const expandedLoopPipesOnly = expandMap(loopPipesOnly)
 
-const insideOutsideMap = loopPipesOnly.map((r, y) => r.map((v, x) => {
-  if (v === ".") {
-    const res = search(expandedLoopPipesOnly, [y * 3, x * 3], val => !val, val => val === undefined)
-    return res ? 'O' : 'I'
-  } else {
-    return '.'
-  }
+//const insideOutsideMap = loopPipesOnly.map((r, y) => r.map((v, x) => {
+//  if (v === ".") {
+//    const res = search(expandedLoopPipesOnly, [y * 3, x * 3], val => !val, val => val === undefined)
+//    return res ? 'O' : 'I'
+//  } else {
+//    return '.'
+//  }
+//}))
+
+//smh...
+const map3 = loopPipesOnly.map((r,y) => r.map((c,x)=> {
+  if(c === '.') {
+    const count = loopPipesOnly[y].slice(x+1)
+      .reduce((acc,v) => v === '|' || v === 'J' || v==='L' ? acc+1:acc, 0)
+    if(count%2 === 0) {
+      return 'O'
+    } else {
+      return 'I'
+    }
+  } else return '.'
 }))
-console.log(toString(insideOutsideMap))
-const solution2 = insideOutsideMap.reduce((acc, v) => acc + v.reduce((acc, c) => c === 'I' ? acc + 1 : acc, 0), 0)
+
+//console.log(toString(insideOutsideMap))
+//const solution2 = insideOutsideMap.reduce((acc, v) => acc + v.reduce((acc, c) => c === 'I' ? acc + 1 : acc, 0), 0)
+//console.log('solution2', solution2)
+console.log(matrixToString(map3))
+const solution2 = map3.reduce((acc, v) => acc + v.reduce((acc, c) => c === 'I' ? acc + 1 : acc, 0), 0)
 console.log('solution2', solution2)
