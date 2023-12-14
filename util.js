@@ -15,6 +15,7 @@ function matrixToString(map) {
 }
 
 const sum = (a, b) => a + b
+
 const product = (a, b) => a * b
 
 const count = (m) => (acc, v) => v === m ? acc + 1 : acc
@@ -24,5 +25,6 @@ module.exports = {
   matrixToString,
   transpose,
   sum,
-  product
+  product,
+  count
 }

@@ -6,8 +6,7 @@ const maps = input.split('\n\n').map(l => l.split('\n').map(s => s.split('')))
 
 function rowMismatches(line, startIndex) {
   let mismatchCount = 0
-  for (let i = startIndex, j = startIndex + 1; true; i--, j++) {
-    if (!line[i] || !line[j]) break
+  for (let i = startIndex, j = startIndex + 1; i >= 0 && j < line.length; i--, j++) {
     if (line[i] !== line[j]) mismatchCount++
   }
   return mismatchCount
