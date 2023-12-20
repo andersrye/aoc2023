@@ -1,4 +1,5 @@
 const fs = require('fs')
+const {lcm} = require("./util");
 const input = fs.readFileSync('./inputs/08.txt', 'utf-8')
 
 const [instructions, , ...nodes] = input.split('\n')
@@ -21,14 +22,6 @@ function countSteps(location, pred) {
 const solution1 = countSteps('AAA', l => l === 'ZZZ')
 
 console.log('solution1', solution1)
-
-function gcd(a, b) {
-  return !b ? a : gcd(b, a % b)
-}
-
-function lcm(a, b) {
-  return (a * b) / gcd(a, b);
-}
 
 const solution2 = Object.keys(map)
   .filter(l => l[2] === 'A')

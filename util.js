@@ -20,11 +20,29 @@ const product = (a, b) => a * b
 
 const count = (m) => (acc, v) => v === m ? acc + 1 : acc
 
+const printSolution = (name, fn) => {
+  const start = process.hrtime.bigint()
+  const res = fn()
+  const end = process.hrtime.bigint()
+  console.log(`${name} =`, res, `in ${(Number(end - start) / 1000000000).toFixed(2)}s`)
+}
+
+function gcd(a, b) {
+  return !b ? a : gcd(b, a % b)
+}
+
+function lcm(a, b) {
+  return (a * b) / gcd(a, b);
+}
+
 module.exports = {
   iterateMatrix,
   matrixToString,
   transpose,
   sum,
   product,
-  count
+  count,
+  printSolution,
+  gcd,
+  lcm
 }
