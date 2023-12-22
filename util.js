@@ -14,6 +14,22 @@ function matrixToString(map) {
   return map.map(l => l.map(n => n ? n : " ").join("")).join('\n')
 }
 
+function makeMatrix(h, w, val = undefined) {
+  const fn = typeof val !== "function" ? () => val : val
+  return new Array(h).fill(null).map(_ => new Array(w).fill(null).map(fn))
+}
+
+function repeatMatrix(matrix, times) {
+  const res = new Array(matrix.length*times)
+  for (let i = 0; i < res.length; i++) {
+    res[i] = new Array(matrix[0].length*times)
+    for (let j = 0; j < res[i].length; j++) {
+      res[i][j] = matrix[i%matrix.length][j%matrix.length]
+    }
+  }
+  return res
+}
+
 const sum = (a, b) => a + b
 
 const product = (a, b) => a * b
@@ -44,5 +60,7 @@ module.exports = {
   count,
   printSolution,
   gcd,
-  lcm
+  lcm,
+  makeMatrix,
+  repeatMatrix
 }
