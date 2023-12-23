@@ -1,6 +1,6 @@
 require('./dirty-tricks')
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/12.txt', 'utf-8')
+const {sum} = require("./util");
+const input = require('fs').readFileSync('./inputs/12.txt', 'utf-8')
 
 const parsed = input.split('\n').map(line => {
   const [a,b] = line.split(' ')
@@ -35,37 +35,19 @@ function valid(string, validator) {
   }
   return validator.length === validatorIndex
 }
-function searchSolutions([string, validator], i) {
-  //console.log(string, validator.join())
-  //console.log(i+1, 'maxcount', Math.pow(2, string.reduce((acc,v) => v==='?' ? acc+1 : acc, 0)))
+function searchSolutions([string, validator]) {
   const queue = [string]
   let res = 0
-  let iters = 0
   while(queue.length > 0) {
     const val = queue.pop()
     const r = valid(val, validator)
-    //console.log(queue.length, 'val',val, r)
     if(r === true) {
       res++
     } else if(r === undefined) {
       queue.push(val.replace(/\?/, "."), val.replace(/\?/, "#"))
     }
-    iters++
   }
-  //console.log('done!', iters, res)
   return res
 }
 
-console.log('solution1', parsed.map(searchSolutions).reduce((a,b) => a+b, 0))
-
-//TODO...:
-//const parsed2 = input.split('\n').map(line => {
-//  const [a,b] = line.split(' ')
-//  b.split(',').map(n=>parseInt(n))
-//  return [
-//    new Array(5).fill(a).join('?'),
-//    new Array(5).fill(b.split(',').map(n=>parseInt(n))).flat()
-//  ]
-//})
-//
-//console.log('!!',parsed2.map(searchSolutions).reduce((a,b) => a+b, 0))
+console.log('solution1', parsed.map(searchSolutions).reduce(sum))

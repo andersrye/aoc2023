@@ -50,4 +50,4 @@ const IteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.
 
 Object.assign(Generator.prototype, {map: mapGenerator, filter: filterGenerator,take: takeGenerator, some, reduce})
 Object.assign(IteratorPrototype, {map, some, reduce})
-Object.assign(String.prototype, {map, some, reduce})
+Object.assign(String.prototype, {map, some, reduce, every: Array.prototype.every})
