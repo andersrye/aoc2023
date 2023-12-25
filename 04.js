@@ -1,6 +1,5 @@
 require('./dirty-tricks')
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/04.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/04.txt', 'utf-8')
 
 const scores = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 

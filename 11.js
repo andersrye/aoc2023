@@ -1,8 +1,7 @@
 require('./dirty-tricks')
-const fs = require('fs')
-const {matrixToString, transpose, iterateMatrix} = require("./util")
+const {transpose, iterateMatrix, sum} = require("./util")
 
-const input = fs.readFileSync('./inputs/11.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/11.txt', 'utf-8')
 const universe = input.split('\n')
   .map(r=>r.split(""))
 
@@ -22,7 +21,6 @@ function getPath([[y1,x1], [y2,x2]]) {
   return path
 }
 
-
 function totalDistances(universe) {
   return iterateMatrix(universe)
     .filter(([v]) => v === '#')
@@ -31,7 +29,7 @@ function totalDistances(universe) {
     .map(getPath)
     .map(path => path.map(([y,x]) => universe[y][x]))
     .map(path => path.reduce((acc, val) => typeof val === 'number' ? acc+val:acc+1, 0))
-    .reduce((a,b) => a+b)
+    .reduce(sum)
 }
 
 const expandedUniverse = expand(universe, 2)

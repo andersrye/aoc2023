@@ -81,17 +81,17 @@ const path = search(expandedMap, [y * 3 + 1, x * 3 + 1], v => v, (_, h, [y2, x2]
 
 console.log('solution1', Math.floor(path.length / 3 / 2))
 
-console.log(matrixToString(map), '\n')
+//console.log(matrixToString(map), '\n')
 const nonLoopTiles = new Array(map.length).fill(null).map(_ => new Array(map[0].length).fill(1))
 path.forEach(([y, x]) => nonLoopTiles[Math.floor(y / 3)][Math.floor(x / 3)] = 0)
 
-console.log(matrixToString(nonLoopTiles), '\n')
+//console.log(matrixToString(nonLoopTiles), '\n')
 
 const loopPipesOnly = map.map((r, y) => r.map((v, x) => nonLoopTiles[y][x] ? "." : v))
 
-console.log(matrixToString(loopPipesOnly), '\n')
+//console.log(matrixToString(loopPipesOnly), '\n')
 
-const expandedLoopPipesOnly = expandMap(loopPipesOnly)
+//const expandedLoopPipesOnly = expandMap(loopPipesOnly)
 
 //const insideOutsideMap = loopPipesOnly.map((r, y) => r.map((v, x) => {
 //  if (v === ".") {
@@ -115,9 +115,6 @@ const map3 = loopPipesOnly.map((r,y) => r.map((c,x)=> {
   } else return '.'
 }))
 
-//console.log(toString(insideOutsideMap))
-//const solution2 = insideOutsideMap.reduce((acc, v) => acc + v.reduce((acc, c) => c === 'I' ? acc + 1 : acc, 0), 0)
-//console.log('solution2', solution2)
-console.log(matrixToString(map3))
+//console.log(matrixToString(map3))
 const solution2 = map3.reduce((acc, v) => acc + v.reduce((acc, c) => c === 'I' ? acc + 1 : acc, 0), 0)
 console.log('solution2', solution2)

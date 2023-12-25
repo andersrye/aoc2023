@@ -10,8 +10,7 @@ init().then(async ({Context}) => {
   const {Solver, Real} = Context()
   const solver = new Solver()
   const [
-    varX, varY, varZ,
-    varVx, varVy, varVz
+    varX, varY, varZ, varVx, varVy, varVz
   ] = ['x', 'y', 'z', 'vx', 'vy', 'vz'].map(Real.const)
   lines.slice(0, 3).forEach(([[x, y, z], [vx, vy, vz]], i) => {
     const t = Real.const("t" + i)

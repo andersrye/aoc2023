@@ -1,5 +1,4 @@
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/02.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/02.txt', 'utf-8')
 
 const maxVals = {
   red: 12,

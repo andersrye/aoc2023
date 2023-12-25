@@ -1,6 +1,5 @@
 require('./dirty-tricks')
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/07.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/07.txt', 'utf-8')
 
 const parsed = input.split('\n')
   .map(line => line.match(/(\w{5})\s(\d+)/))

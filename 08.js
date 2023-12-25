@@ -1,6 +1,5 @@
-const fs = require('fs')
 const {lcm} = require("./util");
-const input = fs.readFileSync('./inputs/08.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/08.txt', 'utf-8')
 
 const [instructions, , ...nodes] = input.split('\n')
 const map = nodes

@@ -35,8 +35,6 @@ brickInputs.sort((a, b) => {
   return Math.min(a.start[2], a.end[2]) - Math.min(b.start[2], b.end[2])
 })
 
-//console.log('sorted', brickInputs)
-
 const brickMatrix = makeMatrix(xMax + 1, yMax + 1, () => new Array(zMax + 1))
 brickInputs.forEach((brick) => {
   for (const [x, y, z] of brick.coords()) {

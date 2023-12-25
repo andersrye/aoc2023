@@ -1,5 +1,5 @@
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/06.txt', 'utf-8')
+const {product} = require("./util");
+const input = require('fs').readFileSync('./inputs/06.txt', 'utf-8')
 
 const [times, distances] = input
   .split('\n')
@@ -19,7 +19,7 @@ function countWaysToWin(time, distance) {
 
 const solution1 = times
   .map((time, i) => countWaysToWin(time, distances[i]))
-  .reduce((a, b) => a * b)
+  .reduce(product)
 
 console.log('solution1', solution1)
 

@@ -1,7 +1,6 @@
 require('./dirty-tricks')
-const fs = require('fs')
 const {sum, printSolution} = require("./util");
-const input = fs.readFileSync('./inputs/12.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/12.txt', 'utf-8')
 
 const parsed = input.split('\n').map(line => {
   const [a, b] = line.split(' ')

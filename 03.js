@@ -1,6 +1,5 @@
 require('./dirty-tricks')
-const fs = require('fs')
-const input = fs.readFileSync('./inputs/03.txt', 'utf-8')
+const input = require('fs').readFileSync('./inputs/03.txt', 'utf-8')
 const lines = input.split('\n')
 
 function* neighbors(lineIndex, index, length) {
